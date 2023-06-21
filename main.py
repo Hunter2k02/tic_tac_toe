@@ -29,7 +29,7 @@ class Application():
         self.app.resizable(width=False, height=False)
         self.app.title("TTT")
         self.app.geometry("700x710+600+150")
-        self.label = tk.Label(text="Player's One turn",font="sans 20 bold" )
+        self.label = tk.Label(text="X's turn",font="sans 20 bold" )
         self.label.grid(row=0, column=1)
         
         #Creating grid
@@ -64,8 +64,29 @@ class Application():
         #Rules of game
         if self.flag:
             self.rules[row][column] = 1
-            self.label.config(text="Player's One turn")
+            self.label.config(text="O's turn")
             self.buttons[row][column].config(state= tk.DISABLED, text="X", disabledforeground="red", font='sans 12 bold')
+            
+            #Victory rules
+                #Horizontall lines
+            if (((self.rules[0][0]==1 and self.rules[0][1]==1 and self.rules[0][2]==1) or
+                 (self.rules[1][0]==1 and self.rules[1][1]==1 and self.rules[1][2]==1) or
+                 (self.rules[2][0]==1 and self.rules[2][1]==1 and self.rules[2][2]==1)) or
+                
+                #Vertical lines
+                ((self.rules[0][0]==1 and self.rules[1][0]==1 and self.rules[2][0]==1) or
+                 (self.rules[0][1]==1 and self.rules[1][1]==1 and self.rules[2][1]==1) or
+                 (self.rules[0][2]==1 and self.rules[1][2]==1 and self.rules[2][2]==1)) or
+                #Cross lines
+                ((self.rules[0][0]==1 and self.rules[1][1]==1 and self.rules[2][2]==1) or
+                 (self.rules[0][2]==1 and self.rules[1][1]==1 and self.rules[2][0]==1))):
+                self.PlayerOneWon()
+                exit()
+                #Tie rules
+            if 2 in self.rules[0] or 2 in self.rules[1] or 2 in self.rules[2]:
+                pass
+            else:
+                self.Tie()
             
             if self.HowMany==2:   
                 self.flag=0
@@ -77,6 +98,7 @@ class Application():
                 while(self.rules[row][column]!=2):
                     row = randint(0,2)
                     column=randint(0,2)  
+                
                 self.rules[row][column] = 0
                 self.buttons[row][column].config(state= tk.DISABLED, text="O", disabledforeground="Blue", font='sans 12 bold')
                 if (((self.rules[0][0]==0 and self.rules[0][1]==0 and self.rules[0][2]==0) or
@@ -90,33 +112,15 @@ class Application():
                 
                 ((self.rules[0][0]==0 and self.rules[1][1]==0 and self.rules[2][2]==0) or
                 (self.rules[0][2]==0 and self.rules[1][1]==0 and self.rules[2][0]==0))):
-                    self.PlayerOneWon()
+                    self.PlayerTwoWon()
+                    exit()
             
-           #Victory rules
-                #Horizontall lines
-            if (((self.rules[0][0]==1 and self.rules[0][1]==1 and self.rules[0][2]==1) or
-                 (self.rules[1][0]==1 and self.rules[1][1]==1 and self.rules[1][2]==1) or
-                 (self.rules[2][0]==1 and self.rules[2][1]==1 and self.rules[2][2]==1)) or
-                
-                #Vertical lines
-                ((self.rules[0][0]==1 and self.rules[1][0]==1 and self.rules[2][0]==1) or
-                 (self.rules[0][1]==1 and self.rules[1][1]==1 and self.rules[2][1]==1) or
-                 (self.rules[0][2]==1 and self.rules[1][2]==1 and self.rules[2][2]==1)) or
-                #Cross lines
-                ((self.rules[0][0]==1 and self.rules[1][1]==1 and self.rules[2][2]==1) or
-                 (self.rules[0][2]==1 and self.rules[1][1]==1 and self.rules[2][0]==1))):
-                self.PlayerTwoWon()
-                #Tie rules
-            if 2 in self.rules[0] or 2 in self.rules[1] or 2 in self.rules[2]:
-                pass
-            else:
-                self.Tie()
+           
                   
         else:
             
             self.rules[row][column] = 0  
-                
-            self.label.config(text="Player's Two turn")
+            self.label.config(text="X's turn")
             self.buttons[row][column].config(state= tk.DISABLED, text="O", disabledforeground="blue", font='sans 12 bold')
             self.flag=1
             #Victory rules
@@ -133,6 +137,7 @@ class Application():
                 ((self.rules[0][0]==0 and self.rules[1][1]==0 and self.rules[2][2]==0) or
                 (self.rules[0][2]==0 and self.rules[1][1]==0 and self.rules[2][0]==0))):
                 self.PlayerTwoWon()
+                exit()
                 #Tie rules
             if 2 in self.rules[0] or 2 in self.rules[1] or 2 in self.rules[2]:
                 pass
