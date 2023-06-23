@@ -31,7 +31,6 @@ class Application():
         self.app.resizable(width=False, height=False)
         self.app.title("TTT")
         self.app.geometry("700x710+600+150")
-        self.canvas = tk.Canvas(self.app, width=700, height=710)
         self.label = tk.Label(text="X's turn",font="sans 20 bold" )
         self.label.grid(row=0, column=1)
         
@@ -173,9 +172,7 @@ class Application():
         self.root.destroy()
         self.CreateBoard()
         
-    def DrawLine(self):
-        pass
-        
+    
         
         
     
