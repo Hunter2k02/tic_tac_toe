@@ -7,7 +7,8 @@ class Application():
         
         self.flag = 1 
         self.create_menu()   
-        self.display()
+        
+        
         
     def create_menu(self):
         #Creating menu window
@@ -21,6 +22,7 @@ class Application():
         self.OnePlayerButt = tk.Button(self.root, text="Player vs Computer", font="sans 12 bold", width=50, height=5, command=self.OnePlayer).grid(row=0,column=0)
         self.TwoPlayersButt = tk.Button(self.root, text="Player vs Player", font="sans 12 bold",  width=50, height=5, command=self.TwoPlayers).grid(row=1,column=0)
         self.ExitGame = tk.Button(self.root, text="Exit", width=50, height=5, font="sans 12 bold", command=self.ExitGame).grid(row=2,column=0)
+        self.root.mainloop()
         
     def CreateBoard(self):
         #Creating app window
@@ -29,6 +31,7 @@ class Application():
         self.app.resizable(width=False, height=False)
         self.app.title("TTT")
         self.app.geometry("700x710+600+150")
+        self.canvas = tk.Canvas(self.app, width=700, height=710)
         self.label = tk.Label(text="X's turn",font="sans 20 bold" )
         self.label.grid(row=0, column=1)
         
@@ -108,7 +111,7 @@ class Application():
                 
                 ((self.rules[0][0]==0 and self.rules[1][0]==0 and self.rules[2][0]==0) or
                 (self.rules[0][1]==0 and self.rules[1][1]==0 and self.rules[2][1]==0) or
-                (self.rules[0][2]==1 and self.rules[1][2]==0 and self.rules[2][2]==0)) or
+                (self.rules[0][2]==0 and self.rules[1][2]==0 and self.rules[2][2]==0)) or
                 
                 ((self.rules[0][0]==0 and self.rules[1][1]==0 and self.rules[2][2]==0) or
                 (self.rules[0][2]==0 and self.rules[1][1]==0 and self.rules[2][0]==0))):
@@ -132,7 +135,7 @@ class Application():
                 #Vertical lines
                 ((self.rules[0][0]==0 and self.rules[1][0]==0 and self.rules[2][0]==0) or
                 (self.rules[0][1]==0 and self.rules[1][1]==0 and self.rules[2][1]==0) or
-                (self.rules[0][2]==1 and self.rules[1][2]==0 and self.rules[2][2]==0)) or
+                (self.rules[0][2]==0 and self.rules[1][2]==0 and self.rules[2][2]==0)) or
                 #Cross lines
                 ((self.rules[0][0]==0 and self.rules[1][1]==0 and self.rules[2][2]==0) or
                 (self.rules[0][2]==0 and self.rules[1][1]==0 and self.rules[2][0]==0))):
@@ -170,8 +173,12 @@ class Application():
         self.root.destroy()
         self.CreateBoard()
         
-    def display(self):
-        self.root.mainloop()
+    def DrawLine(self):
+        pass
+        
+        
+        
+    
         
 Application()
 
